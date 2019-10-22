@@ -37,6 +37,8 @@ export default class App extends Component {
                 },
             ]
         }
+
+        this.addBtn = React.createRef();
     }
 
     handleDelete = event_id => {
@@ -84,7 +86,7 @@ export default class App extends Component {
 
     render() {
         return (
-            <>
+            <>                
                 <AddEventModal isOpen={this.state.showModal}  toggleModal={this.toggleModal} addEvent={this.addEvent} />
                 <MDBContainer>
                     <MDBRow>
@@ -132,8 +134,9 @@ export default class App extends Component {
                             </p>
                         </MDBCol>
                     </MDBRow>
-                </MDBContainer> 
+                </MDBContainer>
             </>
         );
     }
+
 }

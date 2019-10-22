@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-import {MDBBtn, MDBInput, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBIcon, MDBBadge, MDBContainer, MDBRow, MDBCol} from "mdbreact";
+import {
+    MDBBadge
+} from "mdbreact";
 
 export default class Event extends React.Component {
     
