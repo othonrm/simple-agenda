@@ -8,6 +8,10 @@ import {
     MDBBtn
 } from 'mdbreact';
 
+import { TimePicker } from 'antd';
+
+import moment from 'moment';
+
 export default class AddEventModal extends React.Component {
 
     state = {
@@ -43,9 +47,13 @@ export default class AddEventModal extends React.Component {
         this.props.toggleModal();
     }
 
+    onChange = (time, timeString) => {
+        console.log(time, timeString);
+    }
+
     render() {
         return (
-            <MDBModal isOpen={this.props.isOpen} toggle={this.props.toggleModal}>
+            <MDBModal isOpen={this.props.isOpen} toggle={(e) => console.log(e)} centered>
                 <MDBModalHeader
                     className="text-center"
                     titleClass="w-100 font-weight-bold"
@@ -56,7 +64,7 @@ export default class AddEventModal extends React.Component {
 
                 <MDBModalBody>
                     <form className="mx-3 grey-text">
-                        <MDBInput
+                        {/* <MDBInput
                             name="time"
                             label="Time"
                             icon="clock"
@@ -64,7 +72,8 @@ export default class AddEventModal extends React.Component {
                             group
                             type="text"
                             getValue={this.handleInputChange("time")}
-                        />
+                        /> */}
+                        <TimePicker toggle={() => console.log("oi")} onChange={this.onChange} defaultValue={moment("12:08", "HH:mm")} format={"HH:mm"} />
                         <MDBInput
                             name="title"
                             label="Title"
@@ -94,7 +103,7 @@ export default class AddEventModal extends React.Component {
                 </MDBModalBody>
 
                 <MDBModalFooter className="justify-content-center">
-                    <MDBBtn color="info" rounded onClick={this.handleAddNewEvent}>
+                    <MDBBtn color="success" rounded onClick={this.handleAddNewEvent}>
                         Add
                     </MDBBtn>
                 </MDBModalFooter>

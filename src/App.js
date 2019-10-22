@@ -3,8 +3,7 @@ import {
     MDBContainer,
     MDBRow,
     MDBCol,
-    MDBBtn,
-    MDBIcon
+    MDBBtn
 } from "mdbreact";
 
 
@@ -12,6 +11,8 @@ import './App.css';
 
 import Event from './components/Event';
 import AddEventModal from './components/AddEventModal';
+
+import WeatherForecast from './components/WeatherForecast';
 
 export default class App extends Component {
 
@@ -21,20 +22,20 @@ export default class App extends Component {
         this.state = {
             showModal: false,
             events: [
-                { 
-                    id: 1,
-                    time: "10:00",
-                    title: "Breakfast with Simon",
-                    location: "Somewhere",
-                    description: "Something cool",
-                },
-                { 
-                    id: 2,
-                    time: "11:00",
-                    title: "Breakfast with Simon",
-                    location: "Somewhere",
-                    description: "Something cool",
-                },
+                // { 
+                //     id: 1,
+                //     time: "10:00",
+                //     title: "Breakfast with Simon",
+                //     location: "Somewhere",
+                //     description: "Something cool",
+                // },
+                // { 
+                //     id: 2,
+                //     time: "11:00",
+                //     title: "Breakfast with Simon",
+                //     location: "Somewhere",
+                //     description: "Something cool",
+                // },
             ]
         }
 
@@ -59,6 +60,11 @@ export default class App extends Component {
                 handleDelete={this.handleDelete}
             />
         );
+
+        if(this.state.events.length === 0)
+        {
+            return <h6>Você ainda não adicionou nenhum evento em sua agenda...</h6>
+        }
 
         return events;
     }
@@ -91,7 +97,7 @@ export default class App extends Component {
                 <MDBContainer>
                     <MDBRow>
                         <MDBCol md="9" className="mb-r">
-                            <h2 className="text-uppercase my-3">Today:</h2>
+                            <h2 className="text-uppercase my-3">Hoje:</h2>
                             
                             <div id="schedule-items">
                                 {this.populateEvents()}
@@ -99,7 +105,7 @@ export default class App extends Component {
 
                             <MDBRow className="mb-4">
                                 <MDBCol xl="3" md="6" className="mx-auto text-center">
-                                    <MDBBtn color="info" rounded onClick={this.toggleModal}>
+                                    <MDBBtn color="primary" rounded onClick={this.toggleModal}>
                                         Novo evento
                                     </MDBBtn>
                                 </MDBCol>
@@ -108,30 +114,12 @@ export default class App extends Component {
 
                         </MDBCol>
                         <MDBCol md="3">
-                            <h3 className="text-uppercase my-3">Schedule</h3>
+                            <h3 className="text-uppercase my-3">Agenda</h3>
 
                             <h6 className="my-3">
-                                It's going to be busy that today. You have{" "} <b>{this.state.events.length} events </b> today.
+                                Hoje vai ser {this.state.events.length < 6 ? "tranquilo" : "puxado"}. Você tem {this.state.events.length < 6 ? "apenas" : ""} <b>{this.state.events.length} eventos </b> hoje.
                             </h6>
-                            <h1 className="my-3">
-                                <MDBRow>
-                                    <MDBCol xs="3" className="text-center">
-                                    <MDBIcon icon="sun" fixed />
-                                    </MDBCol>
-                                    <MDBCol xs="9">Sunny</MDBCol>
-                                </MDBRow>
-                                <MDBRow>
-                                    <MDBCol xs="3" className="text-center">
-                                    <MDBIcon icon="thermometer-three-quarters" fixed />
-                                    </MDBCol>
-                                    <MDBCol xs="9">23°C</MDBCol>
-                                </MDBRow>
-                            </h1>
-                            <p>
-                                Don't forget your sunglasses. Today will dry and sunny, becoming
-                                warm in the afternoon with temperatures of between 20 and 25
-                                degrees.
-                            </p>
+                            <WeatherForecast />
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
