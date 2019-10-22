@@ -31,21 +31,24 @@ export default class WeatherForecast extends Component {
 
         if ("geolocation" in navigator) {
             
-            navigator.geolocation.getCurrentPosition((position) => {
+            navigator.geolocation.getCurrentPosition((position) => {                   
+
                     this.setState({
                         coords: {
                             lat: position.coords.latitude,
                             lng: position.coords.longitude
                         }
-                    }, () => { this.carregarInfos() });
+                    }, () => { this.carregarInfos(); localStorage.setItem('coords', JSON.stringify(this.state.coords)); });
                 },
                 (error) => {
                     console.log(error); // "User denied Geolocation"
                     
+                    const savedLocation = localStorage.getItem('coords') ? JSON.parse(localStorage.getItem('coords')) : null;
+
                     this.setState({
                         coords: {
-                            lat: -23.5503898,
-                            lng: -46.6330809563329
+                            lat: savedLocation ? savedLocation.lat : -23.5503898,
+                            lng: savedLocation ? savedLocation.lng : -46.6330809563329
                         }
                     }, () => { this.carregarInfos() });
             });
@@ -55,10 +58,6 @@ export default class WeatherForecast extends Component {
 
     carregarInfos = () => {
         this.getCurrentLocationGeolocation();
-
-        setTimeout(() => {
-            this.getCurrentWeatherForrecast();
-        }, 500); 
     }
 
     getCurrentLocationGeolocation = async () => {
@@ -72,6 +71,8 @@ export default class WeatherForecast extends Component {
 
             this.setState({ address: response.data.address });
         }
+
+        this.getCurrentWeatherForrecast();
     }
 
     getCurrentWeatherForrecast = async () => {

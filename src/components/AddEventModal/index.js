@@ -10,7 +10,7 @@ import {
 
 import { TimePicker } from 'antd';
 
-import moment from 'moment';
+// import moment from 'moment';
 
 export default class AddEventModal extends React.Component {
 
@@ -32,7 +32,8 @@ export default class AddEventModal extends React.Component {
     handleInputChange = inputName => value => {
         const nextValue = value;
         this.setState({ [inputName]: nextValue });
-        console.log(this.state);
+
+        // console.log(this.state);
     }
 
     handleAddNewEvent = () => {
@@ -47,8 +48,8 @@ export default class AddEventModal extends React.Component {
         this.props.toggleModal();
     }
 
-    onChange = (time, timeString) => {
-        console.log(time, timeString);
+    handleTimePickerChange = (time, timeString) => {
+        this.setState({ time: timeString });
     }
 
     render() {
@@ -73,7 +74,11 @@ export default class AddEventModal extends React.Component {
                             type="text"
                             getValue={this.handleInputChange("time")}
                         /> */}
-                        <TimePicker toggle={() => console.log("oi")} onChange={this.onChange} defaultValue={moment("12:08", "HH:mm")} format={"HH:mm"} />
+                        <div className="md-form form-group">
+                            <i data-test="fa" className="fa fa-clock prefix"></i>
+                            <TimePicker onChange={this.handleTimePickerChange} className="ml-5" format={"HH:mm"} name="time" />
+                            <label className="active" data-error="" data-success="">Time</label>
+                        </div>
                         <MDBInput
                             name="title"
                             label="Title"

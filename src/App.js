@@ -73,19 +73,21 @@ export default class App extends Component {
         this.setState({ showModal: !this.state.showModal });
     };
 
-    addEvent = newEvent => {
+    addEvent = event_data => {
         let events = [...this.state.events];
-        let newId = Math.max.apply(Math, events.map(function(o) { return o.id; })) + 1;
+        let newId = events.length > 0 ? Math.max.apply(Math, events.map(function(o) { return o.id; })) + 1 : 1;
 
-        console.log(newId);
-        
-        events.push({
+        let newEvent = {
             id: newId,
-            time: newEvent.time,
-            title: newEvent.title,
-            location: newEvent.location,
-            description: newEvent.description
-        });
+            time: event_data.time,
+            title: event_data.title,
+            location: event_data.location,
+            description: event_data.description
+        }
+
+        console.log(newEvent);
+        
+        events.push(newEvent);
 
         this.setState({ events });
     }
@@ -96,8 +98,23 @@ export default class App extends Component {
                 <AddEventModal isOpen={this.state.showModal}  toggleModal={this.toggleModal} addEvent={this.addEvent} />
                 <MDBContainer>
                     <MDBRow>
+
+                        <MDBCol md="3">
+                            <h3 className="text-uppercase my-3">Hoje</h3>
+
+                            <h6 className="mt-3 mb-5">
+                                {
+                                    this.state.events.length === 0 ?
+                                    "Hoje vai ser sussa, você não tem eventos programados..."
+                                    :
+                                    `Hoje vai ser ${this.state.events.length < 6 ? "tranquilo" : "puxado"}. Você tem ${this.state.events.length < 6 ? "apenas" : ""} <b>${this.state.events.length} eventos </b> hoje.`
+                                }
+                            </h6>
+                            <WeatherForecast />
+                        </MDBCol>
+
                         <MDBCol md="9" className="mb-r">
-                            <h2 className="text-uppercase my-3">Hoje:</h2>
+                            <h3 className="text-uppercase my-3">Agenda</h3>
                             
                             <div id="schedule-items">
                                 {this.populateEvents()}
@@ -112,14 +129,6 @@ export default class App extends Component {
 
                             </MDBRow>
 
-                        </MDBCol>
-                        <MDBCol md="3">
-                            <h3 className="text-uppercase my-3">Agenda</h3>
-
-                            <h6 className="my-3">
-                                Hoje vai ser {this.state.events.length < 6 ? "tranquilo" : "puxado"}. Você tem {this.state.events.length < 6 ? "apenas" : ""} <b>{this.state.events.length} eventos </b> hoje.
-                            </h6>
-                            <WeatherForecast />
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
