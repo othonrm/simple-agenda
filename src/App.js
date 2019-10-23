@@ -6,6 +6,7 @@ import {
     MDBBtn
 } from "mdbreact";
 
+import { ToastContainer, toast } from 'react-toastify';
 
 import './App.css';
 
@@ -13,6 +14,7 @@ import Event from './components/Event';
 import AddEventModal from './components/AddEventModal';
 
 import WeatherForecast from './components/WeatherForecast';
+import Offline from './components/Offline';
 
 export default class App extends Component {
 
@@ -20,6 +22,7 @@ export default class App extends Component {
         super(props);
 
         this.state = {
+            online: navigator.onLine,
             showModal: false,
             events: [
                 // { 
@@ -40,6 +43,30 @@ export default class App extends Component {
         }
 
         this.addBtn = React.createRef();
+    }
+
+    componentDidMount() {
+
+        window.addEventListener('online', this.handleNetworkChange);
+        window.addEventListener('offline', this.handleNetworkChange);
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener('online', this.handleNetworkChange);
+        window.removeEventListener('offline', this.handleNetworkChange);
+    }
+
+    handleNetworkChange = () => {
+        this.setState({ online: navigator.onLine });
+
+        if(!navigator.onLine)
+        {
+            toast.error("Você está offline!");
+        }
+        else
+        {
+            toast.success("Você está online!");
+        }
     }
 
     handleDelete = event_id => {
@@ -132,6 +159,8 @@ export default class App extends Component {
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
+                <Offline online={this.state.online} >{this.state.online ? 'Online' : 'Offline'}</Offline>
+                <ToastContainer autoClose="2000" position={toast.POSITION.BOTTOM_RIGHT} />
             </>
         );
     }
