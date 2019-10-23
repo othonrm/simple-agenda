@@ -14,10 +14,6 @@ import { TimePicker } from 'antd';
 
 export default class AddEventModal extends React.Component {
 
-    state = {
-
-    }
-
     constructor(props) {
         super(props);
 
@@ -54,7 +50,11 @@ export default class AddEventModal extends React.Component {
 
     render() {
         return (
-            <MDBModal isOpen={this.props.isOpen} toggle={(e) => console.log(e)} centered>
+            <MDBModal 
+                // toggle={this.props.toggleModal} 
+                isOpen={this.props.isOpen}
+                centered
+            >
                 <MDBModalHeader
                     className="text-center"
                     titleClass="w-100 font-weight-bold"
@@ -76,14 +76,13 @@ export default class AddEventModal extends React.Component {
                         /> */}
                         <div className="md-form form-group">
                             <i data-test="fa" className="fa fa-clock prefix"></i>
-                            <TimePicker onChange={this.handleTimePickerChange} className="ml-5" format={"HH:mm"} name="time" />
+                            <TimePicker onChange={this.handleTimePickerChange} className="ml-5" placeholder="" format={"HH:mm"} name="time" />
                             <label className="active" data-error="" data-success="">Time</label>
                         </div>
                         <MDBInput
                             name="title"
                             label="Title"
                             icon="edit"
-                            hint="Briefing"
                             group
                             type="text"
                             getValue={this.handleInputChange("title")}
