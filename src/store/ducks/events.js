@@ -1,5 +1,10 @@
 import { toast } from 'react-toastify';
 
+export const Types = {
+    ADD: 'event/ADD',
+    DELETE: 'event/DELETE',
+}
+
 const INITIAL_STATE = [
     // { 
     //     id: 1,
@@ -19,7 +24,7 @@ const INITIAL_STATE = [
 
 export default function events(state = INITIAL_STATE, action) {
     switch(action.type) {
-        case 'ADD_EVENT':
+        case Types.ADD:
 
             let events = state;
 
@@ -40,7 +45,7 @@ export default function events(state = INITIAL_STATE, action) {
             
             return [...events, newEvent];
 
-        case 'DELETE_EVENT':
+        case Types.DELETE:
             // console.log("Deletar evento: ", action.payload.event_id);
             toast.info("Evento deletado com sucesso!");
 
@@ -49,3 +54,15 @@ export default function events(state = INITIAL_STATE, action) {
             return state;
     }
 }
+
+export const Creators = {    
+    addEvent: event_data => ({ 
+        type: Types.ADD,
+        payload: { event_data }
+    }),
+
+    deleteEvent: event_id => ({ 
+        type: Types.DELETE,
+        payload: { event_id }
+    }),
+};

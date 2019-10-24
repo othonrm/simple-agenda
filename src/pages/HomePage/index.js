@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 
 import EventList from '../../components/EventList';
 
-import * as EventActions from './../../store/actions/events';
+import { Creators as EventActions } from './../../store/ducks/events';
 
 import AddEventModal from './../../components/AddEventModal';
 

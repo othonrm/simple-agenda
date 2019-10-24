@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { PropTypes } from 'prop-types';
 
 import Event from './../Event';
-import * as EventActions from './../../store/actions/events';
+import { Creators as EventActions} from './../../store/ducks/events';
 
 const EventList = (props) => {
 

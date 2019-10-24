@@ -3,7 +3,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as userActions from './../../store/actions/user';
+import { Creators as UserActions } from './../../store/ducks/user';
 
 import './styles.css';
 
@@ -28,6 +28,6 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(userActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(UserActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
