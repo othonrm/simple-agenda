@@ -16,8 +16,14 @@ const composer = process.env.NODE_ENV === 'development' ?
     :
     applyMiddleware(...middlewares);
 
-const store = createStore(reducers, composer);
+const reduxPersistedState = localStorage.getItem('reduxPersistedState') ? JSON.parse(localStorage.getItem('reduxPersistedState')) : {};
+
+const store = createStore(reducers, reduxPersistedState, composer);
 
 sagaMiddleware.run(sagas);
+
+store.subscribe(()=> {
+    localStorage.setItem('reduxPersistedState', JSON.stringify(store.getState()))
+})
 
 export default store;

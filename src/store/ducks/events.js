@@ -1,25 +1,20 @@
 import { toast } from 'react-toastify';
 
+import moment from 'moment';
+
 export const Types = {
     ADD: 'event/ADD',
     DELETE: 'event/DELETE',
 }
 
 const INITIAL_STATE = [
-    // { 
-    //     id: 1,
-    //     time: "10:00",
-    //     title: "Breakfast with Simon",
-    //     location: "Somewhere",
-    //     description: "Something cool",
-    // },
-    // { 
-    //     id: 2,
-    //     time: "11:30",
-    //     title: "Breakfast with Othon",
-    //     location: "Somewhere",
-    //     description: "Something cool",
-    // }
+    { 
+        id: 1,
+        time: moment().format("HH:mm"),
+        title: "Evento de exemplo",
+        location: "Algum lugar",
+        description: "Apenas para mostrar como é um evento...",
+    }
 ];
 
 export default function events(state = INITIAL_STATE, action) {

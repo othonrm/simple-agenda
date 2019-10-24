@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -9,10 +9,20 @@ import './styles.css';
 
 const Login = (props) => {
 
+    useEffect(() => {
+
+        const isLogged = (props.user.data && props.user.data.user_name) !== null;
+
+        if(isLogged)
+        {
+            props.history.push('/home');
+        }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[props.user.data])
+    
     async function handleLogin () {
         await props.loginRequest();
-
-        console.log(props.user);
     }
 
     return(
