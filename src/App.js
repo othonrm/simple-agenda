@@ -10,11 +10,11 @@ import './App.css';
 
 import HomePage from './pages/HomePage';
 
-console.tron.log("Testando");
+import Routes from './routes';
 
 const App = () => (
     <Provider store={store}>
-        <HomePage />
+        <Routes />
         <ToastContainer autoClose={2000} position={toast.POSITION.BOTTOM_RIGHT} />
     </Provider>
 )

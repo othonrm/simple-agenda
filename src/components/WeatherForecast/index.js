@@ -67,7 +67,7 @@ export default class WeatherForecast extends Component {
 
         if(response.data !== null)
         {
-            console.log(response.data.address);
+            console.tron.log('Location IQ Api response:', response.data.address);
 
             this.setState({ address: response.data.address });
         }
@@ -83,7 +83,8 @@ export default class WeatherForecast extends Component {
 
         if(response.data !== null)
         {
-            // console.log(response.data);
+            console.log('Dark Sky Api response:');
+            console.log(response.data);
 
             this.setState({
                 forecast: response.data,
@@ -91,7 +92,7 @@ export default class WeatherForecast extends Component {
             });
         }
 
-        console.log(response.data.daily.data[0])
+        // console.log(response.data.daily.data[0])
 
     }
 
